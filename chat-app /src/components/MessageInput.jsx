@@ -38,7 +38,6 @@ const MessageInput = () => {
         image: imagePreview,
       });
 
-      // Clear form
       setText("");
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
@@ -48,32 +47,34 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 bg-gray-800/50 border-t border-gray-700">
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">
           <div className="relative">
             <img
               src={imagePreview}
               alt="Preview"
-              className="w-20 h-20 object-cover rounded-lg border border-zinc-700"
+              className="w-20 h-20 object-cover rounded-lg border border-gray-600"
             />
             <button
               onClick={removeImage}
-              className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-base-300
-              flex items-center justify-center"
+              className="absolute -top-2 -right-2 bg-gray-800 rounded-full p-1
+                       border border-gray-600 hover:bg-gray-700 transition-colors"
               type="button"
             >
-              <X className="size-3" />
+              <X className="size-4 text-gray-400" />
             </button>
           </div>
         </div>
       )}
 
-      <form onSubmit={handleSendMessage} className="flex items-center gap-2">
-        <div className="flex-1 flex gap-2">
+      <form onSubmit={handleSendMessage} className="flex items-center gap-3">
+        <div className="flex-1 flex gap-3">
           <input
             type="text"
-            className="w-full input input-bordered rounded-lg input-sm sm:input-md"
+            className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg
+                     text-gray-200 placeholder-gray-400 focus:outline-none focus:border-blue-500
+                     transition-colors"
             placeholder="Type a message..."
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -88,8 +89,9 @@ const MessageInput = () => {
 
           <button
             type="button"
-            className={`hidden sm:flex btn btn-circle
-                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+            className={`hidden sm:flex items-center justify-center w-10 h-10
+                     rounded-full border border-gray-600 hover:bg-gray-700
+                     transition-colors ${imagePreview ? "text-blue-500" : "text-gray-400"}`}
             onClick={() => fileInputRef.current?.click()}
           >
             <Image size={20} />
@@ -97,13 +99,18 @@ const MessageInput = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-sm btn-circle"
+          className={`flex items-center justify-center w-10 h-10 rounded-full
+                   ${!text.trim() && !imagePreview
+                     ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                     : "bg-blue-600 text-white hover:bg-blue-700"}
+                   transition-colors`}
           disabled={!text.trim() && !imagePreview}
         >
-          <Send size={22} />
+          <Send size={20} />
         </button>
       </form>
     </div>
   );
 };
+
 export default MessageInput;
