@@ -8,6 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+host-app/node_modules
+chat-app/node_modules
+mail-app/node_modules
 dist
 dist-ssr
 *.local

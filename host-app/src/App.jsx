@@ -1,5 +1,4 @@
 import Navbar from "./components/Navbar";
-
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import SettingsPage from "./pages/SettingsPage";
@@ -14,19 +13,26 @@ import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import HomePage from "./pages/HomePage";
 
+import ChatPage from "remoteApp/ChatPage";
+
 const App = () => {
-  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth, setAuthUser, onlineUsers } = useAuthStore();
   const { theme } = useThemeStore();
+
+  console.log({ authUser });
+  localStorage.setItem("authUser", JSON.stringify(authUser));
 
   console.log({ onlineUsers });
 
   useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("authUser"));
+    if (storedUser) {
+      setAuthUser(storedUser); // Corrected this line
+    }
     checkAuth();
-  }, [checkAuth]);
+  }, [checkAuth, setAuthUser]);
 
-  console.log({ authUser });
-
-  if (isCheckingAuth && !authUser)
+  if (isCheckingAuth)
     return (
       <div className="flex items-center justify-center h-screen">
         <Loader className="size-10 animate-spin" />
@@ -36,19 +42,39 @@ const App = () => {
   return (
     <div data-theme={theme}>
       <Navbar />
-
       <Routes>
-        <Route path="/" element={authUser ? <LoginPage /> : <Navigate to="/login" />} />
-        <Route path="/signup" element={!authUser ? <SignUpPage /> : <Navigate to="/home" />} />
-        <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/home" />} />
+        <Route
+          path="/"
+          element={!authUser ? <LoginPage /> : <Navigate to="/home" />}
+        />
+        <Route
+          path="/signup"
+          element={!authUser ? <SignUpPage /> : <Navigate to="/home" />}
+        />
+        <Route
+          path="/login"
+          element={!authUser ? <LoginPage /> : <Navigate to="/home" />}
+        />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
-        <Route path="/home" element={authUser ? <HomePage /> : <Navigate to="/" />} />
+        <Route
+          path="/profile"
+          element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/home"
+          element={authUser ? <HomePage /> : <Navigate to="/" />}
+        />
 
+        {/* Micro-frontend routes */}
+        <Route
+          path="/chat"
+          element={authUser ? <ChatPage /> : <Navigate to="/" />}
+        />
       </Routes>
 
       <Toaster />
     </div>
   );
 };
+
 export default App;

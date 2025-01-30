@@ -19,10 +19,20 @@ const ChatContainer = () => {
   const messageEndRef = useRef(null);
 
   useEffect(() => {
+    if (!selectedUser) return;
+
+    const socket = useAuthStore.getState().socket;
+
+    if (!socket) {
+      console.warn("Socket not connected yet. Retrying...");
+      return;
+    }
+
     getMessages(selectedUser._id);
     subscribeToMessages();
+
     return () => unsubscribeFromMessages();
-  }, [selectedUser._id, getMessages, subscribeToMessages, unsubscribeFromMessages]);
+  }, [selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,30 +40,55 @@ const ChatContainer = () => {
 
   if (isMessagesLoading) return <MessageSkeleton />;
 
+  console.log("messages", messages)
+  console.log("authUser", messages)
+
   return (
     <div className="flex-1 flex flex-col bg-gray-900/50">
       <ChatHeader />
-      
+
       <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
         {messages.map((message) => (
           <div
             key={message._id}
-            className={`flex ${message.senderId === authUser._id ? "justify-end" : "justify-start"}`}
+            className={`flex ${
+              message.senderId === authUser._id
+                ? "justify-end"
+                : "justify-start"
+            }`}
           >
-            <div className={`flex max-w-[75%] ${message.senderId === authUser._id ? "flex-row-reverse" : "flex-row"}`}>
+            <div
+              className={`flex max-w-[75%] ${
+                message.senderId === authUser._id
+                  ? "flex-row-reverse"
+                  : "flex-row"
+              }`}
+            >
               <div className="flex-shrink-0">
                 <img
-                  src={message.senderId === authUser._id ? authUser.profilePic || "/avatar.png" : selectedUser.profilePic || "/avatar.png"}
+                  src={
+                    message.senderId === authUser._id
+                      ? authUser.profilePic || "/avatar.png"
+                      : selectedUser.profilePic || "/avatar.png"
+                  }
                   alt="Avatar"
                   className="h-8 w-8 rounded-full border-2 border-gray-700"
                 />
               </div>
-              <div className={`mx-3 ${message.senderId === authUser._id ? "items-end" : "items-start"}`}>
-                <div className={`rounded-2xl px-4 py-2 ${
-                  message.senderId === authUser._id 
-                    ? "bg-blue-600 text-white" 
-                    : "bg-gray-700 text-gray-200"
-                }`}>
+              <div
+                className={`mx-3 ${
+                  message.senderId === authUser._id
+                    ? "items-end"
+                    : "items-start"
+                }`}
+              >
+                <div
+                  className={`rounded-2xl px-4 py-2 ${
+                    message.senderId === authUser._id
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-700 text-gray-200"
+                  }`}
+                >
                   {message.image && (
                     <img
                       src={message.image}
