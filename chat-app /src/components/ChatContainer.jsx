@@ -14,34 +14,43 @@ const ChatContainer = () => {
     selectedUser,
     subscribeToMessages,
     unsubscribeFromMessages,
+    sendMessage, // get access to sendMessage function
+    triggerOtherUserToFetchMessages // Method to trigger the other user to fetch messages
   } = useChatStore();
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
 
+  // When selectedUser changes, fetch messages and subscribe to socket events
   useEffect(() => {
     if (!selectedUser) return;
 
-    const socket = useAuthStore.getState().socket;
-
-    if (!socket) {
-      console.warn("Socket not connected yet. Retrying...");
-      return;
-    }
-
+    // Fetch messages when user is selected
     getMessages(selectedUser._id);
+
+    // Subscribe to socket events for this user
     subscribeToMessages();
 
+    // Cleanup: unsubscribe from socket messages when the component unmounts or when the selectedUser changes
     return () => unsubscribeFromMessages();
   }, [selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages]);
 
+  // Scroll to the bottom of the chat when messages update
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages]); // This will trigger when messages are updated, automatically scrolling the view.
+
+  // New function that sends message and triggers getMessages for the other user
+  const handleSendMessage = async (messageData) => {
+    await sendMessage(messageData);
+
+    // After sending the message, trigger the API call to get new messages for the other user
+    if (selectedUser) {
+      // Trigger the getMessages API call for the other user (the one you're chatting with)
+      triggerOtherUserToFetchMessages(selectedUser._id);
+    }
+  };
 
   if (isMessagesLoading) return <MessageSkeleton />;
-
-  console.log("messages", messages)
-  console.log("authUser", messages)
 
   return (
     <div className="flex-1 flex flex-col bg-gray-900/50">
@@ -108,7 +117,8 @@ const ChatContainer = () => {
         <div ref={messageEndRef} />
       </div>
 
-      <MessageInput />
+      {/* Modify the MessageInput component to use the handleSendMessage */}
+      <MessageInput onSend={handleSendMessage} />
     </div>
   );
 };

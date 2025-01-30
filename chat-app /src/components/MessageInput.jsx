@@ -1,3 +1,4 @@
+// components/MessageInput.js
 import { useRef, useState } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { Image, Send, X } from "lucide-react";
@@ -7,7 +8,7 @@ const MessageInput = () => {
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef(null);
-  const { sendMessage } = useChatStore();
+  const { sendMessage } = useChatStore(); // Ensure this is correctly accessed
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -91,7 +92,9 @@ const MessageInput = () => {
             type="button"
             className={`hidden sm:flex items-center justify-center w-10 h-10
                      rounded-full border border-gray-600 hover:bg-gray-700
-                     transition-colors ${imagePreview ? "text-blue-500" : "text-gray-400"}`}
+                     transition-colors ${
+                       imagePreview ? "text-blue-500" : "text-gray-400"
+                     }`}
             onClick={() => fileInputRef.current?.click()}
           >
             <Image size={20} />
@@ -100,9 +103,11 @@ const MessageInput = () => {
         <button
           type="submit"
           className={`flex items-center justify-center w-10 h-10 rounded-full
-                   ${!text.trim() && !imagePreview
-                     ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                     : "bg-blue-600 text-white hover:bg-blue-700"}
+                   ${
+                     !text.trim() && !imagePreview
+                       ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                       : "bg-blue-600 text-white hover:bg-blue-700"
+                   }
                    transition-colors`}
           disabled={!text.trim() && !imagePreview}
         >
