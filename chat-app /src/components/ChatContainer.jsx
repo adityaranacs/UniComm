@@ -15,7 +15,7 @@ const ChatContainer = () => {
     subscribeToMessages,
     unsubscribeFromMessages,
     sendMessage, // get access to sendMessage function
-    triggerOtherUserToFetchMessages // Method to trigger the other user to fetch messages
+    triggerOtherUserToFetchMessages, // Method to trigger the other user to fetch messages
   } = useChatStore();
   const { authUser } = useAuthStore();
   const messageEndRef = useRef(null);
@@ -53,10 +53,10 @@ const ChatContainer = () => {
   if (isMessagesLoading) return <MessageSkeleton />;
 
   return (
-    <div className="flex-1 flex flex-col bg-gray-900/50">
+    <div className="flex-1 flex flex-col bg-base-100">
       <ChatHeader />
 
-      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
+      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6 bg-base-200">
         {messages.map((message) => (
           <div
             key={message._id}
@@ -81,7 +81,7 @@ const ChatContainer = () => {
                       : selectedUser.profilePic || "/avatar.png"
                   }
                   alt="Avatar"
-                  className="h-8 w-8 rounded-full border-2 border-gray-700"
+                  className="h-8 w-8 rounded-full border-2 border-base-300"
                 />
               </div>
               <div
@@ -94,8 +94,8 @@ const ChatContainer = () => {
                 <div
                   className={`rounded-2xl px-4 py-2 ${
                     message.senderId === authUser._id
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-700 text-gray-200"
+                      ? "bg-primary text-primary-content"
+                      : "bg-base-300 text-base-content"
                   }`}
                 >
                   {message.image && (
@@ -107,7 +107,7 @@ const ChatContainer = () => {
                   )}
                   {message.text && <p className="text-sm">{message.text}</p>}
                 </div>
-                <span className="text-xs text-gray-400 mt-1 block">
+                <span className="text-xs text-base-content/70 mt-1 block">
                   {formatMessageTime(message.createdAt)}
                 </span>
               </div>

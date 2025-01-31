@@ -6,9 +6,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuthStore } from "./store/useAuthStore";
 import { useThemeStore } from "./store/useThemeStore";
 import { useEffect } from "react";
-import ChatPage from "./pages/ChatPage";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
+import MailPage from "./pages/MailPage";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
@@ -35,15 +35,13 @@ const App = () => {
 
       <Routes>
         <Route
-          path="/chat"
-          element={authUser ? <ChatPage /> : <Navigate to="/login" />}
+          path="/mail"
+          element={authUser ? <MailPage /> : <Navigate to="/login" />}
         />
-
-        
 
         <Route
           path="/signup"
-          element={!authUser ? <SignUpPage /> : <Navigate to="/chat" />}
+          element={!authUser ? <SignUpPage /> : <Navigate to="/mail" />}
         />
       </Routes>
 

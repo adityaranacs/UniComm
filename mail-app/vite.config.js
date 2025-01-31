@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: "app",
-      remotes: {
-        remoteApp: "http://localhost:3002/assets/remoteEntry.js",
-        remoteApp2: "http://localhost:3003/assets/remoteEntry.js"
+      name: "mail_app",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./MailPage": "./src/pages/MailPage",
       },
       shared: {
         react: { singleton: true, requiredVersion: "^18.0.0" },
@@ -18,6 +18,7 @@ export default defineConfig({
       }
           }),
   ],
+  
   build: {
     modulePreload: false,
     target: "esnext",

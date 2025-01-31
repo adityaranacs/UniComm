@@ -14,9 +14,11 @@ import { Toaster } from "react-hot-toast";
 import HomePage from "./pages/HomePage";
 
 import ChatPage from "remoteApp/ChatPage";
+import MailPage from "remoteApp2/MailPage";
 
 const App = () => {
-  const { authUser, checkAuth, isCheckingAuth, setAuthUser, onlineUsers } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth, setAuthUser, onlineUsers } =
+    useAuthStore();
   const { theme } = useThemeStore();
 
   console.log({ authUser });
@@ -69,6 +71,11 @@ const App = () => {
         <Route
           path="/chat"
           element={authUser ? <ChatPage /> : <Navigate to="/" />}
+        />
+
+        <Route
+          path="/mail"
+          element={authUser ? <MailPage /> : <Navigate to="/" />}
         />
       </Routes>
 
