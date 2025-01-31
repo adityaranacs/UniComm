@@ -29,7 +29,7 @@ const App = () => {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("authUser"));
     if (storedUser) {
-      setAuthUser(storedUser); // Corrected this line
+      setAuthUser(storedUser); 
     }
     checkAuth();
   }, [checkAuth, setAuthUser]);

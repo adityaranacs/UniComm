@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Eye, EyeOff, Loader2, Lock, Mail, SendHorizontal, User } from "lucide-react";
@@ -141,7 +142,6 @@ const SignUpPage = () => {
         </div>
       </div>
 
-      {/* right side */}
 
      
     </div>

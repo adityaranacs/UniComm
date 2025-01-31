@@ -26,7 +26,7 @@ const ComposeModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className={`fixed bottom-0 right-4 w-full sm:max-w-[500px] px-4 pl-4 bg-base-100 rounded-t-lg shadow-xl border border-base-300 ${
+    <div className={`fixed bottom-0 right-4 w-full sm:w-[500px] bg-base-100 rounded-t-lg shadow-xl border border-base-300 ${
       isMinimized ? 'h-[48px]' : 'h-[80vh] sm:h-[500px]'
     }`}>
       {/* Header */}

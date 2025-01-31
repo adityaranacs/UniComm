@@ -32,57 +32,7 @@ export const mockEmails = {
           }
         ]
       },
-      {
-        _id: "3",
-        senderId: "user4",
-        senderName: "Mike Johnson",
-        senderEmail: "mike.j@example.com",
-        senderProfilePic: "/avatar.png",
-        subject: "Weekly Report",
-        text: "Attached is the weekly progress report for our ongoing projects. Please review the key performance indicators, completed tasks, and pending issues. Let me know if you need any clarification or additional insights. Your feedback would be appreciated before we submit the final report.",
-        createdAt: "2025-01-29T15:45:00.000Z",
-        isRead: true,
-        folder: "inbox",
-        hasAttachments: true,
-        attachments: [
-          {
-            name: "weekly-report.pdf",
-            url: "/mock-pdf.pdf"
-          }
-        ]
-      },
-      {
-        _id: "4",
-        senderId: "user5",
-        senderName: "Emily Carter",
-        senderEmail: "emily.c@example.com",
-        senderProfilePic: "/avatar.png",
-        subject: "Team Outing This Friday",
-        text: "Hey everyone, we’re planning a team outing this Friday evening. It’s been a while since we had a casual get-together, and this would be a great chance to unwind. Please confirm your availability so we can make the necessary arrangements. Hope to see you all there!",
-        createdAt: "2025-01-28T18:20:00.000Z",
-        isRead: false,
-        folder: "inbox",
-        hasAttachments: false
-      },
-      {
-        _id: "5",
-        senderId: "user6",
-        senderName: "David Smith",
-        senderEmail: "david.s@example.com",
-        senderProfilePic: "/avatar.png",
-        subject: "Security Policy Updates",
-        text: "Hello Team, Please take a moment to review the attached document regarding the recent updates to our security policies. These changes will be effective starting next month. Let me know if you have any concerns or questions. Your cooperation is highly appreciated.",
-        createdAt: "2025-01-27T14:10:00.000Z",
-        isRead: true,
-        folder: "inbox",
-        hasAttachments: true,
-        attachments: [
-          {
-            name: "security-policy.pdf",
-            url: "/mock-security-policy.pdf"
-          }
-        ]
-      }
+  
     ],
     sent: [
       {

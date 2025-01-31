@@ -17,7 +17,7 @@ const MailPage = () => {
   };
 
   const EmailSidebar = () => (
-    <div className="w-full md:w-72 bg-base-300 border-r border-base-200"> {/* Responsive width */}
+    <div className="w-full md:w-72 bg-base-300 border-r border-base-200">
       <div className="p-5">
         <button
           className="btn btn-primary w-full gap-2"
@@ -56,14 +56,19 @@ const MailPage = () => {
         <div className="card bg-base-200 shadow-xl">
           <div className="flex flex-col md:flex-row h-[calc(100vh-7rem)]">
             <EmailSidebar />
-            <EmailChatContainer selectedFolder={selectedFolder} />
-            <ComposeModal
-              isOpen={isComposeOpen}
-              onClose={() => setIsComposeOpen(false)}
-            />
+            <div className="flex-1">
+              <EmailChatContainer selectedFolder={selectedFolder} />
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Ensure ComposeModal has proper full screen or height */}
+      <ComposeModal
+        isOpen={isComposeOpen}
+        onClose={() => setIsComposeOpen(false)}
+        style={{ maxWidth: "800px", width: "100%" }} // Adjust modal max width for consistency
+      />
     </div>
   );
 };

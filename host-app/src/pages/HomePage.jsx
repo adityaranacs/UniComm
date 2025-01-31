@@ -2,7 +2,7 @@ import { SendHorizontal, Mail, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  const navigate = useNavigate(); // React Router Navigation
+  const navigate = useNavigate(); 
 
   return (
     <div className="h-screen bg-base-100 flex items-center justify-center p-6 sm:p-12">
@@ -25,7 +25,7 @@ const HomePage = () => {
           {/* Chat App Card */}
           <div
             className="card bg-base-200 hover:bg-base-300 transition-all cursor-pointer"
-            onClick={() => navigate("/chat")} // Navigate to ChatPage
+            onClick={() => navigate("/chat")} 
           >
             <div className="card-body items-center text-center">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -41,7 +41,7 @@ const HomePage = () => {
           {/* Mail App Card */}
           <div
             className="card bg-base-200 hover:bg-base-300 transition-all cursor-pointer"
-            onClick={() => navigate("/mail")} // Navigate to MailPage
+            onClick={() => navigate("/mail")} 
           >
             <div className="card-body items-center text-center">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">

@@ -24,28 +24,21 @@ const ChatContainer = () => {
   useEffect(() => {
     if (!selectedUser) return;
 
-    // Fetch messages when user is selected
     getMessages(selectedUser._id);
 
-    // Subscribe to socket events for this user
     subscribeToMessages();
 
-    // Cleanup: unsubscribe from socket messages when the component unmounts or when the selectedUser changes
     return () => unsubscribeFromMessages();
   }, [selectedUser, getMessages, subscribeToMessages, unsubscribeFromMessages]);
 
-  // Scroll to the bottom of the chat when messages update
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]); // This will trigger when messages are updated, automatically scrolling the view.
+  }, [messages]); 
 
-  // New function that sends message and triggers getMessages for the other user
   const handleSendMessage = async (messageData) => {
     await sendMessage(messageData);
 
-    // After sending the message, trigger the API call to get new messages for the other user
     if (selectedUser) {
-      // Trigger the getMessages API call for the other user (the one you're chatting with)
       triggerOtherUserToFetchMessages(selectedUser._id);
     }
   };
@@ -117,7 +110,6 @@ const ChatContainer = () => {
         <div ref={messageEndRef} />
       </div>
 
-      {/* Modify the MessageInput component to use the handleSendMessage */}
       <MessageInput onSend={handleSendMessage} />
     </div>
   );

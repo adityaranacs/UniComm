@@ -1,7 +1,5 @@
 import Navbar from "./components/Navbar";
 
-import SignUpPage from "./pages/SignUpPage";
-
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuthStore } from "./store/useAuthStore";
 import { useThemeStore } from "./store/useThemeStore";
@@ -37,13 +35,6 @@ const App = () => {
         <Route
           path="/chat"
           element={authUser ? <ChatPage /> : <Navigate to="/login" />}
-        />
-
-        
-
-        <Route
-          path="/signup"
-          element={!authUser ? <SignUpPage /> : <Navigate to="/chat" />}
         />
       </Routes>
 

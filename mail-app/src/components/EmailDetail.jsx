@@ -52,7 +52,7 @@ const EmailDetail = ({ email, onBack }) => {
       </div>
 
       {/* Body */}
-      <div className="p-6 flex-1">
+      <div className="p-6 flex-1 overflow-y-auto">
         <div className="prose max-w-none">
           {email.text}
         </div>

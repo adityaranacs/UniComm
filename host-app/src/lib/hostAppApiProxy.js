@@ -1,8 +1,6 @@
-// lib/hostAppApiProxy.js
-
 import axios from 'axios';
 
-const CHAT_APP_BASE_URL = 'http://localhost:3002/api'; // Chat App API
+const CHAT_APP_BASE_URL = 'http://localhost:3002/api'; 
 
 export const forwardToChatApi = async (endpoint, method = 'GET', data = null) => {
   try {

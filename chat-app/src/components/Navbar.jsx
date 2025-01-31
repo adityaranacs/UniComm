@@ -6,16 +6,15 @@ import { useAuthStore } from "../store/useAuthStore";
 const Navbar = () => {
   const { logout, authUser, login } = useAuthStore();
 
-  // Check for existing credentials in localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem("authUser");
     if (storedUser) {
-      login(JSON.parse(storedUser)); // Restore session if available
+      login(JSON.parse(storedUser)); 
     }
   }, [login]);
 
   const navigateToHome = () => {
-    window.location.href = "http://localhost:3001/home"; // Change if necessary
+    window.location.href = "http://localhost:3001/home"; 
   };
 
   return (
