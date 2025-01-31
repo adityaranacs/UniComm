@@ -23,10 +23,12 @@ UniComm consists of four main components:
 ## Key Architectural Decisions & Trade-offs
 
 - **Micro-Frontend Architecture**
+
   - **Pros:** Enables independent deployments, modular development, and scalability.
   - **Cons:** Increased complexity in managing inter-app communication.
 
 - **State Management with Zustand**
+
   - **Pros:** Lightweight, efficient, and easy to integrate.
   - **Cons:** Lacks built-in middleware support compared to Redux.
 
@@ -36,25 +38,29 @@ UniComm consists of four main components:
 
 ## Installation & Setup
 
-1. **Clone the Repository**
-   ```sh
-   git clone https://github.com/adityaranacs/micro-frontend-project.git
-   cd unicomm
-   ```
+### 1. **Clone the Repository**
+
+```sh
+git clone https://github.com/adityaranacs/micro-frontend-project.git
+cd unicomm
+```
 
 2. **Install Dependencies**
-   ```sh
-   cd host && npm install && cd ../chat && npm install && cd ../mail && npm install && cd ../backend && npm install
-   ```
+
+- Run the provided run.sh script to automatically install dependencies for all apps:
+
+  ````sh
+  bash run.sh
+  ````
 
 3. **Configure Environment Variables**
    - Copy `.env.example` to `.env` in each directory and update values accordingly.
-   
 4. **Build & Run Applications**
+
    ```sh
    # For Host, Chat, and Mail apps
    npm run build && npm run serve
-   
+
    # For Backend
    npm run dev
    ```
@@ -64,4 +70,3 @@ UniComm consists of four main components:
 1. Build and deploy each micro-frontend separately.
 2. Deploy the backend to a cloud provider.
 3. Host each frontend on a subdomain and configure CORS.
-
