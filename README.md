@@ -41,7 +41,7 @@ UniComm consists of four main components:
 ### 1. **Clone the Repository**
 
 ```sh
-git clone https://github.com/adityaranacs/micro-frontend-project.git
+git clone https://github.com/adityaranacs/UniComm.git
 cd unicomm
 ```
 
