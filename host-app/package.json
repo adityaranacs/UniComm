@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --port 3001 --strictPort",
+    "dev": "vite --port 3001 --strictPort --host 0.0.0.0",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview --port 3001 --strictPort",
-    "serve" : "vite preview --port 3001 --strictPort"
+    "preview": "vite preview --port 3001 --strictPort --host 0.0.0.0",
+    "serve" : "vite preview --port 3001 --strictPort --host 0.0.0.0"
   },
   "dependencies": {
     "axios": "^1.7.7",

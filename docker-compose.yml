@@ -1,0 +1,75 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URI: "mongodb://root:example@mongodb:27017"
+      JWT_SECRET: "your_jwt_secret"
+      NODE_ENV: "development"
+      PORT: "3000"
+    networks:
+      - app-network
+    depends_on:
+      - mongodb
+
+  chat-app:
+    build:
+      context: ./chat-app
+      args:
+        VITE_MODE: "development"
+        VITE_URL: "http://localhost:3000/api"
+        VITE_URL_SOCKET: "http://localhost:3000"
+    ports:
+      - "3002:3002"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+  host-app:
+    build:
+      context: ./host-app
+      args:
+        VITE_MODE: "development"
+        VITE_URL: "http://localhost:3000/api"
+        VITE_URL_SOCKET: "http://localhost:3000"
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+  mail-app:
+    build:
+      context: ./mail-app
+      args:
+        VITE_MODE: "development"
+        VITE_URL: "http://localhost:3000/api"
+        VITE_URL_SOCKET: "http://localhost:3000"
+    ports:
+      - "3003:3003"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
