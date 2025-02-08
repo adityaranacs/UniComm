@@ -9,7 +9,6 @@ import { connectDB } from "./lib/db.js";
 
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
-import healthRoutes from "./routes/health.js";
 
 import { app, server } from "./lib/socket.js";
 
@@ -32,7 +31,6 @@ origin: [
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
-app.use("/api/health", healthRoutes);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 

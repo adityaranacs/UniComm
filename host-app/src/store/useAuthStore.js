@@ -3,10 +3,8 @@ import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-// Base URL for Socket connection (using the VITE_URL_SOCKET from environment variables)
 const BASE_URL = import.meta.env.VITE_URL_SOCKET;
 
-// A helper function to forward API requests from Host to Chat App
 const forwardToChatApi = async (endpoint, method = "GET", data = null) => {
   try {
     const res = await axiosInstance({
@@ -82,7 +80,7 @@ export const useAuthStore = create((set, get) => ({
       set({ authUser: null });
       toast.success("Logged out successfully");
       get().disconnectSocket();
-      window.location.href = "http://localhost:3001"; // Redirect to Host App
+      window.location.href = "http://localhost:3001"; 
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -103,7 +101,6 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  // Socket connection for messaging between Host App and Chat App
   connectSocket: () => {
     const { authUser } = get();
     if (!authUser || get().socket?.connected) return;
@@ -118,24 +115,20 @@ export const useAuthStore = create((set, get) => ({
 
     set({ socket });
 
-    // Listen for online users
     socket.on("getOnlineUsers", (userIds) => {
       console.log("Online Users:", userIds);
       localStorage.setItem("onlineUsers", JSON.stringify(userIds));
       set({ onlineUsers: userIds });
     });
 
-    // Listen for incoming messages
     socket.on("receiveMessage", (message) => {
       console.log("New Message:", message);
-      // Forward the message to the Host App (using Zustand)
       set((state) => ({
         messages: [...state.messages, message],
       }));
     });
   },
 
-  // Disconnect the socket when the user logs out or leaves the app
   disconnectSocket: () => {
     if (get().socket?.connected) get().socket.disconnect();
   },
@@ -149,12 +142,11 @@ sendMessage: (messageData) => {
     return;
   }
 
-  // Emit the message over the socket connection
   socket.emit("sendMessage", messageData, (response) => {
     if (response?.success) {
       console.log("Message sent successfully", response);
       set((state) => ({
-        messages: [...state.messages, messageData], // Add the sent message to state
+        messages: [...state.messages, messageData], 
       }));
     } else {
       console.error("Message sending failed", response);
@@ -162,7 +154,6 @@ sendMessage: (messageData) => {
   });
 },
 
-  // Fetch all chat messages for the user from the Chat App API
   fetchMessages: async (userId) => {
     try {
       const res = await forwardToChatApi(`messages/${userId}`);

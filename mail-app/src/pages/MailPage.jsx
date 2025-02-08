@@ -63,11 +63,10 @@ const MailPage = () => {
         </div>
       </div>
 
-      {/* Ensure ComposeModal has proper full screen or height */}
       <ComposeModal
         isOpen={isComposeOpen}
         onClose={() => setIsComposeOpen(false)}
-        style={{ maxWidth: "800px", width: "100%" }} // Adjust modal max width for consistency
+        style={{ maxWidth: "800px", width: "100%" }} 
       />
     </div>
   );

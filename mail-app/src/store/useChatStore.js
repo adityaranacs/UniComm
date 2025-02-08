@@ -64,7 +64,6 @@ export const useChatStore = create((set, get) => ({
       );
       set({ messages: [...(messages || []), res.data] });
   
-      // Manually trigger API for the other user to get updated messages
       if (selectedUser._id) {
         await axiosInstance.get(`/messages/${selectedUser._id}`);
       }
@@ -81,7 +80,6 @@ export const useChatStore = create((set, get) => ({
       return;
     }
 
-    // Only connect to the socket once per user
     if (socket && socket.connected) {
       console.log("Socket already connected");
       return;
@@ -103,7 +101,6 @@ export const useChatStore = create((set, get) => ({
     });
 
     newSocket.on("newMessage", (newMessage) => {
-      // Only append if the message is for the selected user
       if (newMessage?.receiverId === selectedUser._id) {
         set((state) => ({
           messages: [...(state.messages || []), newMessage],
@@ -126,7 +123,7 @@ export const useChatStore = create((set, get) => ({
       return;
     }
     set({ selectedUser });
-    get().getMessages(selectedUser._id); // Ensure messages are fetched
-    get().subscribeToMessages(); // Subscribe to socket
+    get().getMessages(selectedUser._id); 
+    get().subscribeToMessages(); 
   },
 }));

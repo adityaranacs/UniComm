@@ -141,7 +141,6 @@ const SignUpPage = () => {
         </div>
       </div>
 
-      {/* right side */}
 
      
     </div>
